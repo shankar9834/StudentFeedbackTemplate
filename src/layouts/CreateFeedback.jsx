@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import "./styles/createFeedback.css"
 
+import {useAuthContext} from "../hooks/useAuthContext"
+
 const optionList=["Agree","Strongly Agree","Disagree","Strongly Disagree"]
 
 const CreateFeedback = () => {
     const [addingQ, setAddingQ] = useState(false);
     const [question, setQuestion] = useState("");
     const [questionList, setQuestionList] = useState([]);
+    const [subject,setSubject]=useState("");  
 
+    const {user,dispatchs}=useAuthContext();
     
     const handleQuestion = (e) => {
       
@@ -35,16 +39,28 @@ const CreateFeedback = () => {
         setAddingQ(true);
     }
 
+    const handleSubject=(e)=>{
+          setSubject(e.target.value)
+    }
+
     const submitForm=()=>{
 
         //logic to submit form
        
         // change this formData and take teacher id from localstorage and subject from input
-            const formData={
+            /* const formData={
                 teacher:"63cd366c2487a07278e6c1ef",
-                "subject":"Graph theory",
+                subject:"Graph theory",
                 questions:questionList
-            };
+            }; */
+
+            const formData={
+                teacher:user.teacher._id,
+                subject:subject,
+                questions:questionList
+            }
+
+          //  console.log(cdata);
 
             const subForm=async()=>{
               
@@ -72,7 +88,10 @@ const CreateFeedback = () => {
     return (
         <div className="createFeedback">
             <h1 className="heading">Create Feedback</h1>
-            <div>
+            <label for="subj">subject name</label>
+            <input type="text" id="subj" className="int" onChange={handleSubject}/>
+
+            <div className="allQuestions">
            {questionList.map((ques,i)=>{
             return (
                 <div className="Question">

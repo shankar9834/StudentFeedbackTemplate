@@ -54,6 +54,7 @@ import ViewAllFeedbacks from "layouts/ViewAllFeedbacks";
 import SignIn from "layouts/SignIn";
 import SignUpMUI from "layouts/SignUpMUI";
 import Logout from "layouts/Logout";
+import SignInTeacher from "layouts/SignInTeacher";
 
 const routes = [
   {
@@ -118,6 +119,13 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUpMUI />,
+  }, {
+    type: "collapse",
+    name: "SignTeacher",
+    key: "signTeacher",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in-teacher",
+    component: <SignInTeacher />,
   },{
     type: "collapse",
     name: "Logout",

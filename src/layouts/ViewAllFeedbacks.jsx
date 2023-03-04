@@ -1,14 +1,16 @@
 
 import {useState, useEffect} from 'react'
-
+import {useAuthContext} from '../hooks/useAuthContext'
 import "./styles/viewAllFeedbacks.css"
-
+import SubmitFeedback from './SubmitFeedback'
 
 const ViewAllFeedbacks=()=>{
     const [feedbacks,setFeedbacks]=useState([]);
     const [toggleView,setToggleView]=useState(false);
     const [viewSubmit,setViewSubmit]=useState(false);
-    const [val,setVal]=useState()
+    const [val,setVal]=useState(-1)
+
+     const {user,dispatchs}=useAuthContext();
 
      useEffect(()=>{
         
@@ -30,7 +32,7 @@ const ViewAllFeedbacks=()=>{
      
      const handleView=(e)=>{
         //logic to view individual feedback
-        console.log(e.target.value)
+       // console.log(e.target.value)
         setVal(e.target.value);
         setToggleView(true)
        
@@ -38,10 +40,14 @@ const ViewAllFeedbacks=()=>{
      }
 
      const handleGOBack=()=>{
+        
         setToggleView(false)
+        setVal(-1);
      }
 
      const handleSubmitFeedback=()=>{
+            
+        setViewSubmit(true);
 
      }
 
@@ -54,10 +60,11 @@ const ViewAllFeedbacks=()=>{
 
     return (
         
-      
-      <div className='viewFeedbacks' style={{marginLeft:mar}}>
-            <h1>All Feedbacks</h1>    
+      <div>
+        {!viewSubmit&&<div className='viewFeedbacks' style={{marginLeft:mar}}>
+            {!toggleView&&<h1>All Feedbacks</h1>} 
              <div className='feeds'>
+             
               {!toggleView&&feedbacks.length>0&&feedbacks.map((feedback,i)=>{
                 return(
                    
@@ -69,7 +76,7 @@ const ViewAllFeedbacks=()=>{
                         <li className='teacher'>
                             {feedback.teacher.name}
                         </li>
-                        <button value={i+1} onClick={handleView}>view</button>
+                        {user&&<button value={i+1} onClick={handleView}>view</button>}
                         
                     </div>
                      
@@ -81,7 +88,7 @@ const ViewAllFeedbacks=()=>{
                 <h2>Teacher Name:{feedbacks[val-1].teacher.name}</h2>   
                 <div><ul>
                     {feedbacks[val-1].question.map((ele,ind)=>{
-                        return <div className="quesInp" >
+                        return <div className="quesInp" key={ind}>
                             <input type="text" value={ele.question}></input>
                            
                         </div>
@@ -89,11 +96,15 @@ const ViewAllFeedbacks=()=>{
                     </ul>
                 </div>
                 <button  onClick={handleGOBack}>go back</button>
-                <button  onClick={handleSubmitFeedback}>submit feedback</button>
+                {user&&user.student&&<button  onClick={handleSubmitFeedback}>submit feedback</button>}
                 </div>}  
              </div>
        
-        </div> 
+        </div> }
+        {viewSubmit&&<SubmitFeedback feedbacks={feedbacks} val={val} setViewSubmit={setViewSubmit} setToggleView={setToggleView}></SubmitFeedback>}
+
+      </div>
+      
 
         
        
