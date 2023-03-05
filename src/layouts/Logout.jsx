@@ -9,6 +9,10 @@ const Logout=()=>{
         localStorage.removeItem('user')
         dispatchs({type:'LOGOUT'})
 
+        //change below method to redirect
+
+        window.location.href='/'
+
     }
     return <button className='logout' onClick={handleLogout}>Logout</button>
 }

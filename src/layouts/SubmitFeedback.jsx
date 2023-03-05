@@ -66,7 +66,7 @@ const SubmitFeedback=({feedbacks,val,setViewSubmit,setToggleView})=>{
     return (
         <div className="viewFeedbacks">
             <h1>Submit Feedback</h1>
-            <div className="feedback" style={{width:"600px",height:"600px",marginLeft:"420px"}}>
+            <div className="feedback" style={{width:"700px",height:"900px",marginLeft:"420px"}}>
             <h2>Subject Name: {feedbacks[val-1].subject}</h2>   
                 <h2>Teacher Name:{feedbacks[val-1].teacher.name}</h2>   
                 <div><ul>

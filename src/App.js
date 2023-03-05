@@ -130,7 +130,16 @@ export default function App() {
             return <Route exact path={route.route} element={route.component} key={route.key} />;
           }
          
-        }else{
+        }
+        else if(route.key=='profile')
+        {
+          if(user)
+          {
+            return <Route exact path={route.route} element={route.component} key={route.key} />;
+
+          }
+        }
+        else{
           return <Route exact path={route.route} element={route.component} key={route.key} />;
         }
         

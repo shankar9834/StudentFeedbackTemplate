@@ -51,7 +51,29 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
+import {useAuthContext} from "../../hooks/useAuthContext"
+
 function Overview() {
+
+
+  const {user}=useAuthContext();
+  
+  var nameP="";
+  var emailP="";
+
+  if(user&&user.student)
+  {
+      nameP=user.student.name ;
+      emailP=user.student.email ;
+
+  }else if(user&&user.teacher)
+  {
+    nameP=user.teacher.name ;
+    emailP=user.teacher.email ;
+  }
+  
+   
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -64,26 +86,26 @@ function Overview() {
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
                 title="profile information"
-                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                description={`Hi I am ${nameP} .`}
                 info={{
-                  fullName: "Alec M. Thompson",
+                  fullName: nameP,
                   mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
-                  location: "USA",
+                  email: emailP,
+                  location: "Lucknow",
                 }}
                 social={[
                   {
-                    link: "https://www.facebook.com/CreativeTim/",
+                    link: "#",
                     icon: <FacebookIcon />,
                     color: "facebook",
                   },
                   {
-                    link: "https://twitter.com/creativetim",
+                    link: "#",
                     icon: <TwitterIcon />,
                     color: "twitter",
                   },
                   {
-                    link: "https://www.instagram.com/creativetimofficial/",
+                    link: "#",
                     icon: <InstagramIcon />,
                     color: "instagram",
                   },
@@ -108,26 +130,7 @@ function Overview() {
         </MDBox>
         <MDBox p={2}>
           <Grid container spacing={6}>
-            {/* <Grid item xs={12} md={6} xl={3}>
-              <DefaultProjectCard
-                image={homeDecor1}
-                label="project #2"
-                title="modern"
-                description="As Uber works through a huge amount of internal management turmoil."
-                action={{
-                  type: "internal",
-                  route: "/pages/profile/profile-overview",
-                  color: "info",
-                  label: "view project",
-                }}
-                authors={[
-                  { image: team1, name: "Elena Morison" },
-                  { image: team2, name: "Ryan Milly" },
-                  { image: team3, name: "Nick Daniel" },
-                  { image: team4, name: "Peterson" },
-                ]}
-              />
-            </Grid> */}
+           
             
             
             

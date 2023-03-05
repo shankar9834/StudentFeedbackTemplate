@@ -55,6 +55,7 @@ import SignIn from "layouts/SignIn";
 import SignUpMUI from "layouts/SignUpMUI";
 import Logout from "layouts/Logout";
 import SignInTeacher from "layouts/SignInTeacher";
+import SignUpTeacher from "layouts/SignUpTeacher";
 
 const routes = [
   {
@@ -106,6 +107,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUpMUI />,
+  },
+  {
+    type: "collapse",
     name: "Sign In",
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
@@ -114,17 +123,18 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUpMUI />,
-  }, {
-    type: "collapse",
-    name: "SignTeacher",
-    key: "signTeacher",
+    name: "SignUpTeacher",
+    key: "signUpTeacher",
     icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in-teacher",
+    route: "/authentication/teacher-signUp",
+    component: <SignUpTeacher />,
+  },
+   {
+    type: "collapse",
+    name: "SignInTeacher",
+    key: "signInTeacher",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/teacher-signIn",
     component: <SignInTeacher />,
   },{
     type: "collapse",
