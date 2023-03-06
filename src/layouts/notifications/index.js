@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -46,13 +46,39 @@ function Notifications() {
   const openErrorSB = () => setErrorSB(true);
   const closeErrorSB = () => setErrorSB(false);
 
+   const [notifications,setNotifications]=useState([])
+    const [get,setGet]=useState(false)
+   useEffect(()=>{
+          
+        const getNotification=async()=>{
+          const res=await fetch('http://localhost:3005/allNotifications')
+
+          const data=await res.json();
+
+          setNotifications(data.notifications)
+          setGet(true)
+         
+          
+         // console.log(notifications[0])
+
+        }
+        getNotification();
+
+   },[])
+
+   
+
   const alertContent = (name) => (
-    <MDTypography variant="body2" color="white">
+   /*  <MDTypography variant="body2" color="white">
       A simple {name} alert with{" "}
       <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
         an example link
       </MDTypography>
       . Give it a click if you like.
+    </MDTypography> */
+
+    <MDTypography variant="body2" color="white">
+       {name} 
     </MDTypography>
   );
 
@@ -121,30 +147,46 @@ function Notifications() {
                 <MDTypography variant="h5">Alerts</MDTypography>
               </MDBox>
               <MDBox pt={2} px={2}>
-                <MDAlert color="primary" dismissible>
+                {/* {get&&<MDAlert color="primary" dismissible>
+                {alertContent(`${notifications[0].message}`)}
+                </MDAlert>} */}
+
+                {
+                  get&&notifications.map((noti)=>{
+                    return (
+                      <MDAlert color="primary" dismissible>
+                {alertContent(`${noti.message}`)}
+                </MDAlert>
+                    )
+                  })
+                }
+                {/* <MDAlert color="primary" dismissible>
                   {alertContent("primary")}
                 </MDAlert>
                 <MDAlert color="secondary" dismissible>
                   {alertContent("secondary")}
-                </MDAlert>
-                <MDAlert color="success" dismissible>
+                </MDAlert> */}
+               {/*  <MDAlert color="success" dismissible>
                   {alertContent("success")}
                 </MDAlert>
                 <MDAlert color="error" dismissible>
                   {alertContent("error")}
-                </MDAlert>
-                <MDAlert color="warning" dismissible>
+                </MDAlert> */}
+                {/* <MDAlert color="warning" dismissible>
                   {alertContent("warning")}
                 </MDAlert>
                 <MDAlert color="info" dismissible>
                   {alertContent("info")}
-                </MDAlert>
-                <MDAlert color="light" dismissible>
+                </MDAlert> */}
+                {/* <MDAlert color="light" dismissible>
                   {alertContent("light")}
                 </MDAlert>
                 <MDAlert color="dark" dismissible>
                   {alertContent("dark")}
-                </MDAlert>
+                </MDAlert> */}
+                
+              
+               
               </MDBox>
             </Card>
           </Grid>

@@ -58,7 +58,15 @@ const SubmitFeedback=({feedbacks,val,setViewSubmit,setToggleView})=>{
 
          setViewSubmit(false)
          setToggleView(false)
+
+        //chnage below method of redirect and add context for feedbacks  
+         window.location.href='/'
          
+    }
+
+    const handleGOBack=()=>
+    {
+        setViewSubmit(false);
     }
     
     //console.log(answers)
@@ -86,6 +94,7 @@ const SubmitFeedback=({feedbacks,val,setViewSubmit,setToggleView})=>{
                     </ul>
                 </div>
                 <button onClick={handleSubmitFeedback}>Submit </button>
+                <button onClick={handleGOBack}>go back </button>
 
             </div>
         </div> 

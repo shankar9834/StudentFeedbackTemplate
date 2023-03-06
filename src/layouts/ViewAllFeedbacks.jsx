@@ -1,5 +1,6 @@
 
 import {useState, useEffect} from 'react'
+import { boolean } from 'yup'
 import {useAuthContext} from '../hooks/useAuthContext'
 import "./styles/viewAllFeedbacks.css"
 import SubmitFeedback from './SubmitFeedback'
@@ -57,6 +58,33 @@ const ViewAllFeedbacks=()=>{
      {
         mar=100
      }
+     
+     let canSubmit=false;
+
+   
+    if(user)
+   {
+   
+     if(user.student&&val>0)
+    {
+      // console.log(feedbacks[val-1].submittedBy);
+       // console.log(user.student);
+
+        for(const stud of feedbacks[val-1].submittedBy)
+        {
+              if(stud._id===user.student._id)
+              {
+                    canSubmit=true;
+              }
+        }
+
+       //console.log(canSubmit)
+      
+    } 
+       
+   }
+    
+    
 
     return (
         
@@ -96,7 +124,7 @@ const ViewAllFeedbacks=()=>{
                     </ul>
                 </div>
                 <button  onClick={handleGOBack}>go back</button>
-                {user&&user.student&&<button  onClick={handleSubmitFeedback}>submit feedback</button>}
+                {user&&user.student&&!canSubmit&&<button  onClick={handleSubmitFeedback}>submit feedback</button>}
                 </div>}  
              </div>
        
