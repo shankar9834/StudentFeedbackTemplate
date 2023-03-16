@@ -1,27 +1,31 @@
-
 import {useState, useEffect} from 'react'
+
 import {useAuthContext} from '../hooks/useAuthContext'
-import "./styles/viewAllFeedbacks.css"
+import "./styles/myFeedbacks.css"
+import ShowChart from './ShowChart'
 
-import SubmitFeedback from './SubmitFeedback'
 
-const ViewAllFeedbacks=()=>{
+const MyFeedbacks=()=>{
     const [feedbacks,setFeedbacks]=useState([]);
     const [toggleView,setToggleView]=useState(false);
-    const [viewSubmit,setViewSubmit]=useState(false);
+    const [viewChart,setViewChart]=useState(false);
     const [val,setVal]=useState(-1)
+
+   
 
      const {user,dispatchs}=useAuthContext();
 
      useEffect(()=>{
+        const fet=`http://localhost:3005/feedback//myFeedbacks/${user.teacher._id}`
+       // console.log(fet)
         
         const getFeedbacks=async()=>{
-            const res=await fetch('http://localhost:3005/feedback/allFeedbacks')
+            const res=await fetch(fet)
             const data=await res.json()
           
             setFeedbacks(data.allFeedbacks);
           
-           console.log(data.allFeedbacks)
+          // console.log(data.allFeedbacks)
         }
         getFeedbacks();
        // console.log(feedbacks)
@@ -33,11 +37,19 @@ const ViewAllFeedbacks=()=>{
      
      const handleView=(e)=>{
         //logic to view individual feedback
-       // console.log(e.target.value)
+      
+      // console.log(e.target.value)
         setVal(e.target.value);
         setToggleView(true)
        
         
+     }
+
+     const handleShowChart=()=>{
+   
+          //  console.log(!viewChart)
+        setViewChart(!viewChart);
+
      }
 
      const handleGOBack=()=>{
@@ -46,11 +58,7 @@ const ViewAllFeedbacks=()=>{
         setVal(-1);
      }
 
-     const handleSubmitFeedback=()=>{
-            
-        setViewSubmit(true);
-
-     }
+     
 
      // setting margine for view feedback
      var mar=400;
@@ -61,36 +69,72 @@ const ViewAllFeedbacks=()=>{
      
      let canSubmit=false;
 
+    
    
-    if(user)
-   {
-   
-     if(user.student&&val>0)
-    {
-      // console.log(feedbacks[val-1].submittedBy);
-       // console.log(user.student);
 
-        for(const stud of feedbacks[val-1].submittedBy)
+    const dataForChart=[];
+
+     const calculateDataForChart=()=>{
+
+
+        for(let feedback of feedbacks)
         {
-              if(stud._id===user.student._id)
-              {
-                    canSubmit=true;
-              }
-        }
+            //console.log(feedback.submission)
+            var agree=0;
+            var disagree=0;
+            var stronglyAgree=0;
+            var stronglyDisagree=0;
 
-       //console.log(canSubmit)
-      
-    } 
+            for(let sub of feedback.submission)
+            {
+               for(let ans of sub.answers)
+               {
+                if(ans.selectedOption=='Disagree')
+                {
+                    disagree++;
+                }
+                else if(ans.selectedOption=='Agree')
+                {
+                    agree++;
+                }
+                else if(ans.selectedOption=='Strongly Disagree')
+                {
+                    stronglyDisagree++;
+                }
+                else if(ans.selectedOption=='Strongly Agree')
+                {
+                    stronglyAgree++
+                }
+               }
+            }
+
+            const data={
+                agree,
+                disagree,
+                stronglyAgree,
+                stronglyDisagree
+            }
+
+            dataForChart.push(data)
+           
+        }
        
-   }
+     }
+
+     calculateDataForChart();
+    
+
+    // console.log(dataForChart)
+   
+    
     
     
 
     return (
         
       <div>
-        {!viewSubmit&&<div className='viewFeedbacks' style={{marginLeft:mar}}>
-            {!toggleView&&<h1>All Feedback Forms</h1>} 
+        {!viewChart&&<div className='myFeedbacks' style={{marginLeft:mar}}>
+            {!toggleView&&<h1>My Feedback Forms</h1>} 
              <div className='feeds'>
              
               {!toggleView&&feedbacks.length>0&&feedbacks.map((feedback,i)=>{
@@ -124,14 +168,16 @@ const ViewAllFeedbacks=()=>{
                     </ul>
                 </div>
                 <button  onClick={handleGOBack}>go back</button>
-                {user&&user.student&&!canSubmit&&<button  onClick={handleSubmitFeedback}>submit feedback</button>}
+                 <button  onClick={handleShowChart}>show chart</button>
                 </div>
                 
                 </div>}  
              </div>
        
         </div> }
-        {viewSubmit&&<SubmitFeedback feedbacks={feedbacks} val={val} setViewSubmit={setViewSubmit} setToggleView={setToggleView}></SubmitFeedback>}
+        {viewChart&&<ShowChart handleShowChart={handleShowChart} ind={val-1} feedbacks={feedbacks} dataForChart={dataForChart[val-1]}></ShowChart>}
+        
+      
 
       </div>
       
@@ -142,4 +188,4 @@ const ViewAllFeedbacks=()=>{
      
 }
 
-export default ViewAllFeedbacks  
+export default MyFeedbacks  

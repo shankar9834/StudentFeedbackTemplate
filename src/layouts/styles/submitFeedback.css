@@ -127,3 +127,11 @@
     width: 35%;
     margin-bottom: 10px;
   }
+
+  textarea{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 5px 10px;
+    width: 100%;
+  }

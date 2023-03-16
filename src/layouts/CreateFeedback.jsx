@@ -79,7 +79,7 @@ const CreateFeedback = () => {
             subForm();
 
             // change this below method and use the method to redirect to different page using react
-            window.location.href='/'
+            window.location.href='/viewFeedbacks'
 
         
     }

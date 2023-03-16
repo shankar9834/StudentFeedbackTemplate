@@ -56,6 +56,7 @@ import SignUpMUI from "layouts/SignUpMUI";
 import Logout from "layouts/Logout";
 import SignInTeacher from "layouts/SignInTeacher";
 import SignUpTeacher from "layouts/SignUpTeacher";
+import MyFeedbacks from "layouts/MyFeedbacks";
 
 const routes = [
   {
@@ -88,6 +89,14 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
     component: <ViewAllFeedbacks />,
+  } ,
+  {
+    type: "collapse",
+    name: "My Feedbacks",
+    key: "MyFeedbacks",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/myFeedbacks",
+    component: <MyFeedbacks />,
   } ,
   {
     type: "collapse",
