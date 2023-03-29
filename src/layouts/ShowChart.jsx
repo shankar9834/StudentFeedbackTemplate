@@ -1,13 +1,16 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import Table from './Table';
+import { display } from '@mui/system';
+import { position } from 'stylis';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
   
 
-const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
+const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
 
     const btnStyles={
         fontSize: '16px',
@@ -20,7 +23,10 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
     cursor: 'pointer',
     transition: 'all 0.3s ease-in-out',
     marginTop: '40px',
-    marginLeft:'150px'
+    marginLeft:'350px',
+    position:'relative',
+    top:'-300px',
+    left:'400px'
     }
 
     //console.log(dataForChart);
@@ -63,10 +69,19 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
     }
    // console.log('showing chart for', ind)
     return (
-        <div style={{width:'400px' , height:'400px',marginLeft:"460px",marginTop:'50px'}}>
+      <div style={{marginLeft:'300px'}}>
+        <div style={{width:'400px' , height:'400px',marginLeft:"260px",marginTop:'50px'}}>
     <Pie data={data} />
+    
+   
+    </div>
+    <div style={{width:'500px',marginLeft:'230px'}}>
+      <Table data={dataForTable}></Table>
+
+    </div>
     <button onClick={handleBtn} style={btnStyles}>go back</button>
     </div>
+    
     )
 }
 

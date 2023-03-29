@@ -16,7 +16,7 @@ const MyFeedbacks=()=>{
      const {user,dispatchs}=useAuthContext();
 
      useEffect(()=>{
-        const fet=`http://localhost:3005/feedback//myFeedbacks/${user.teacher._id}`
+        const fet=`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
        // console.log(fet)
         
         const getFeedbacks=async()=>{
@@ -74,9 +74,76 @@ const MyFeedbacks=()=>{
 
     const dataForChart=[];
 
+    const dataForTable=[];
+     
+    
+       const calculateDataForTable=()=>{
+          // console.log("ho")
+            for(let i=0;i<feedbacks.length;i++)
+            {
+                    const data=[];
+                     var len=feedbacks[i].question.length;
+
+                     for(let i=0;i<len;i++)
+                     {
+                        data.push({
+                            stronglyAgree:0,
+                            agree:0,
+                            stronglyDisagree:0,
+                            disagree:0
+                          })
+
+                     }
+                    // console.log(feedbacks[i].question.length)
+                  
+                    for(let sub=0;sub<feedbacks[i].submission.length;sub++)
+                    {
+                        
+                           for(let ans=0;ans<feedbacks[i].submission[sub].answers.length;ans++)
+                        {
+                            
+
+                            var selectedOption=feedbacks[i].submission[sub].answers[ans].selectedOption;
+                            console.log(selectedOption)
+                            if(selectedOption=='Agree')
+                            {
+                                data[ans].agree++;
+                               // console.log(data[ans])
+                            }
+                            else if(selectedOption=='Disagree')
+                            {
+                                data[ans].disagree++;
+                            }
+                            else if(selectedOption=='Strongly Agree')
+                            {
+                               data[ans].stronglyAgree++;
+                            }
+                            else if(selectedOption=='Strongly Disagree')
+                            {
+                                data[ans].stronglyDisagree++;
+                            }
+
+                        }  
+                       
+                    }
+                    //console.log('prin')
+                    // console.log(data);
+                    dataForTable.push(data);
+                    
+                   
+            }
+           // console.log(dataForTable)
+
+          
+       }
+
+       calculateDataForTable();
+    
+   
+
      const calculateDataForChart=()=>{
 
-
+      // console.log(feedbacks)
         for(let feedback of feedbacks)
         {
             //console.log(feedback.submission)
@@ -89,6 +156,7 @@ const MyFeedbacks=()=>{
             {
                for(let ans of sub.answers)
                {
+                 
                 if(ans.selectedOption=='Disagree')
                 {
                     disagree++;
@@ -105,6 +173,7 @@ const MyFeedbacks=()=>{
                 {
                     stronglyAgree++
                 }
+
                }
             }
 
@@ -126,7 +195,6 @@ const MyFeedbacks=()=>{
 
     // console.log(dataForChart)
    
-    
     
     
 
@@ -175,7 +243,7 @@ const MyFeedbacks=()=>{
              </div>
        
         </div> }
-        {viewChart&&<ShowChart handleShowChart={handleShowChart} ind={val-1} feedbacks={feedbacks} dataForChart={dataForChart[val-1]}></ShowChart>}
+        {viewChart&&<ShowChart handleShowChart={handleShowChart} ind={val-1} feedbacks={feedbacks} dataForTable={dataForTable[val-1]} dataForChart={dataForChart[val-1]}></ShowChart>}
         
       
 
