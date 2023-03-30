@@ -58,7 +58,7 @@ const MyFeedbacks=()=>{
         setVal(-1);
      }
 
-     
+    
 
      // setting margine for view feedback
      var mar=400;
@@ -237,6 +237,7 @@ const MyFeedbacks=()=>{
                 </div>
                 <button  onClick={handleGOBack}>go back</button>
                  <button  onClick={handleShowChart}>show chart</button>
+                
                 </div>
                 
                 </div>}  
