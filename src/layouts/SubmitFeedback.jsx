@@ -1,6 +1,6 @@
 import "./styles/submitFeedback.css"
 import { useAuthContext } from '../hooks/useAuthContext'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 const optionList = ["Agree", "Strongly Agree", "Disagree", "Strongly Disagree"]
 
@@ -13,7 +13,7 @@ const SubmitFeedback = ({ feedbacks, val, setViewSubmit, setToggleView }) => {
 
     const { user, dispatchs } = useAuthContext();
 
-
+useEffect(()=>{
     for (let que of feedbacks[val - 1].question) {
         const obj = {
             question: que._id,
@@ -22,7 +22,10 @@ const SubmitFeedback = ({ feedbacks, val, setViewSubmit, setToggleView }) => {
         answers.push(obj)
     }
 
-    //  console.log(answers)
+     console.log(answers)
+
+},[])
+    
 
     const handleOptionChange = (e) => {
 
@@ -44,7 +47,7 @@ const SubmitFeedback = ({ feedbacks, val, setViewSubmit, setToggleView }) => {
             text:text
         }
 
-        // console.log(data)
+         console.log(data)
 
         const sendSubmitFeedback = async () => {
 

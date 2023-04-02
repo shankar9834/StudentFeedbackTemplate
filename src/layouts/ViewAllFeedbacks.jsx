@@ -21,7 +21,7 @@ const ViewAllFeedbacks=()=>{
           
             setFeedbacks(data.allFeedbacks);
           
-           console.log(data.allFeedbacks)
+          // console.log(data.allFeedbacks)
         }
         getFeedbacks();
        // console.log(feedbacks)
