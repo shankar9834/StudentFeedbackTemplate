@@ -12,9 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import logg from '../images/scene.avif';
 import {useAuthContext} from '../hooks/useAuthContext';
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -55,25 +54,24 @@ export default function SignUpTeacher() {
       if(resp.ok)
       {
           const res= await resp.json();
-        
           //console.log(res.student)
-
           localStorage.setItem('user',JSON.stringify(res));
 
           dispatchs({type:'LOGIN',payload:res});
           window.location.href='/';
-          
       } 
-     
-
-    
-    
-
   };
-
+  
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+
+  <>
+<div className='card1' style={{ 
+  backgroundImage: `url(${logg})`
+  
+}}>
+  <ThemeProvider theme={theme}>
+
+      <div component="main" maxWidth="xs" className='side-container'>
         <CssBaseline />
         <Box
           sx={{
@@ -134,7 +132,6 @@ export default function SignUpTeacher() {
                 />
               </Grid>
               <Grid item xs={12}>
-                
               </Grid>
             </Grid>
             <Button
@@ -155,7 +152,9 @@ export default function SignUpTeacher() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-      </Container>
+      </div>
     </ThemeProvider>
-  );
+  </div>
+  </>
+ );
 }
