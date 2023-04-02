@@ -33,7 +33,6 @@ const MyFeedbacks=()=>{
 
      },[]) 
 
-
      
      const handleView=(e)=>{
         //logic to view individual feedback
@@ -57,8 +56,6 @@ const MyFeedbacks=()=>{
         setToggleView(false)
         setVal(-1);
      }
-
-    
 
      // setting margine for view feedback
      var mar=400;
@@ -126,11 +123,10 @@ const MyFeedbacks=()=>{
                         }  
                        
                     }
-                    //console.log('prin')
+                    
                     // console.log(data);
                     dataForTable.push(data);
-                    
-                   
+                              
             }
            // console.log(dataForTable)
 
