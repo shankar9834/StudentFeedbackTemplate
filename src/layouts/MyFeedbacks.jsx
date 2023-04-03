@@ -91,21 +91,25 @@ const MyFeedbacks=()=>{
                           })
 
                      }
+                    // console.log(data)
                     // console.log(feedbacks[i].question.length)
                   
                     for(let sub=0;sub<feedbacks[i].submission.length;sub++)
                     {
                         
+                       
+                        console.log(feedbacks[i])
                            for(let ans=0;ans<feedbacks[i].submission[sub].answers.length;ans++)
                         {
                             
 
                             var selectedOption=feedbacks[i].submission[sub].answers[ans].selectedOption;
-                            console.log(selectedOption)
+                           // console.log(selectedOption)
                             if(selectedOption=='Agree')
                             {
                                 data[ans].agree++;
-                               // console.log(data[ans])
+                               //const val=ans;
+                               // console.log('printing',val,data[val])
                             }
                             else if(selectedOption=='Disagree')
                             {
@@ -123,7 +127,7 @@ const MyFeedbacks=()=>{
                         }  
                        
                     }
-                    
+                     
                     // console.log(data);
                     dataForTable.push(data);
                               
@@ -133,7 +137,7 @@ const MyFeedbacks=()=>{
           
        }
 
-       calculateDataForTable();
+      calculateDataForTable();
     
    
 

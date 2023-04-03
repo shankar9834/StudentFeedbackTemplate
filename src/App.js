@@ -1,10 +1,6 @@
-
-
 import { useState, useEffect, useMemo } from "react";
-
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +10,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
+
 import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 
@@ -43,6 +40,12 @@ import brandDark from "assets/images/logo-ct-dark.png";
 import { useAuthContext } from './hooks/useAuthContext';
 
 
+import SignUpTeacher from "./layouts/SignUpTeacher"
+import SignInTeacher from "./layouts/SignInTeacher"
+import SignInStudent from "./layouts/SignIn"
+import SignUpStudent from "./layouts/SignUpMUI"
+import MyFeedbacks from "layouts/MyFeedbacks";
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -59,9 +62,9 @@ export default function App() {
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
   const { user, dispatchs } = useAuthContext();
- //   console.log(user)
-   
-  
+  //   console.log(user)
+
+
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -109,37 +112,27 @@ export default function App() {
       }
 
       if (route.route) {
-        if(route.key=='tables')
-        {
-         // console.log(user)
-          if(user&&user.teacher)
-          {
-            return <Route exact path={route.route} element={route.component} key={route.key} />;
-          }
-         
-        }
-        else if(route.key=='MyFeedbacks')
-        {
-          
-          if(user&&user.teacher)
-          {
+        if (route.key == 'tables') {
+          // console.log(user)
+          if (user && user.teacher) {
             return <Route exact path={route.route} element={route.component} key={route.key} />;
           }
         }
-        else if(route.key=='profile')
-        {
-          if(user)
-          {
-            return <Route exact path={route.route} element={route.component} key={route.key} />;
+        else if (route.key == 'MyFeedbacks') {
 
+          if (user && user.teacher) {
+            return <Route exact path={route.route} element={ route.component} key={route.key} />;
           }
         }
-        else{
+        else if (route.key == 'profile') {
+          if (user) {
+            return <Route exact path={route.route} element={route.component} key={route.key} />;
+          }
+        }
+        else {
           return <Route exact path={route.route} element={route.component} key={route.key} />;
         }
-        
       }
-
       return null;
     });
 
@@ -212,8 +205,15 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
+
+       <Route  path="authentication/teacher-signUp" element={<SignUpTeacher/>}></Route>
+       <Route  path="/authentication/teacher-signIn" element={<SignInTeacher/>}></Route> 
+       <Route  path="/authentication/sign-in" element={<SignInStudent/>}></Route>
+       <Route  path="/authentication/sign-up" element={<SignUpStudent/>}></Route>
+
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>
   );
 }
+

@@ -1,10 +1,9 @@
 import * as React from 'react';
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
+import logg from '../images/scene.avif'
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -71,6 +70,9 @@ export default function SignInTeacher() {
   };
 
   return (
+    <div className='card1' style={{
+          backgroundColor:'#CDC2AE'
+    }}>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -135,5 +137,6 @@ export default function SignInTeacher() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

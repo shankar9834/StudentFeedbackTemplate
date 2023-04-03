@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import logg from '../images/scene.avif'
 import {useAuthContext} from '../hooks/useAuthContext';
+import { ClassNames } from '@emotion/react';
 
 function Copyright(props) {
   return (
@@ -25,8 +26,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-
 const theme = createTheme();
 
 export default function SignUpMUI() {
@@ -64,15 +63,14 @@ export default function SignUpMUI() {
           window.location.href='/';
           
       } 
-     
-
-    
-    
-
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div className='card1' style={{
+      backgroundImage: `url(${logg})`
+    }}>
+      
+      <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -157,5 +155,6 @@ export default function SignUpMUI() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

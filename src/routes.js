@@ -57,6 +57,8 @@ import Logout from "layouts/Logout";
 import SignInTeacher from "layouts/SignInTeacher";
 import SignUpTeacher from "layouts/SignUpTeacher";
 import MyFeedbacks from "layouts/MyFeedbacks";
+import Login from "layouts/LoginPage";
+import SignUp from "layouts/SignupPage";
 
 const routes = [
   {
@@ -82,14 +84,15 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
     component: <Billing />,
-  } */{
+  } */
+  {
     type: "collapse",
     name: "View Feedbacks",
     key: "viewFeedbacks",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
     component: <ViewAllFeedbacks />,
-  } ,
+  } , 
   {
     type: "collapse",
     name: "My Feedbacks",
@@ -98,6 +101,22 @@ const routes = [
     route: "/myFeedbacks",
     component: <MyFeedbacks />,
   } ,
+  {
+    type: "collapse",
+    name: "Login",
+    key: "LoginNew",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/LoginNew",
+    component: <Login/>,
+  },  
+  {
+    type: "collapse",
+    name: "SignUp",
+    key: "SignUp",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/SignUp",
+    component: <SignUp/>,
+  },
   {
     type: "collapse",
     name: "Notifications",
@@ -114,38 +133,7 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUpMUI />,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "SignUpTeacher",
-    key: "signUpTeacher",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/teacher-signUp",
-    component: <SignUpTeacher />,
-  },
-   {
-    type: "collapse",
-    name: "SignInTeacher",
-    key: "signInTeacher",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/teacher-signIn",
-    component: <SignInTeacher />,
-  },{
+{
     type: "collapse",
     name: "Logout",
     key: "logout",

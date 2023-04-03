@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles'; 
-
+import logg from '../images/scene.avif'
 import {useAuthContext} from '../hooks/useAuthContext'; 
 
 function Copyright(props) {
@@ -27,7 +26,6 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-
 export default function SignIn() {
 
    const {dispatchs}=useAuthContext();
@@ -56,21 +54,18 @@ export default function SignIn() {
     if(resp.ok)
     {
         const res= await resp.json();
-      
         //console.log(res.student)
-
         localStorage.setItem('user',JSON.stringify(res));
-         
         dispatchs({type:'LOGIN',payload:res}); 
-        
         window.location.href='/';
-       
-        
     } 
-
-  };
+};
 
   return (
+    <div className='card1' style={{ 
+      backgroundImage: `url(${logg})`
+    }}>
+
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -135,5 +130,6 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }
