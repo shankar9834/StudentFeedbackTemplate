@@ -38,7 +38,7 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 import { useAuthContext } from './hooks/useAuthContext';
-import LoginPage from './layouts/Newpage'
+
 
 import SignUpTeacher from "./layouts/SignUpTeacher"
 import SignInTeacher from "./layouts/SignInTeacher"
@@ -216,3 +216,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+

@@ -57,8 +57,8 @@ import Logout from "layouts/Logout";
 import SignInTeacher from "layouts/SignInTeacher";
 import SignUpTeacher from "layouts/SignUpTeacher";
 import MyFeedbacks from "layouts/MyFeedbacks";
-import Login from "layouts/Newpage";
-import SignUp from "layouts/NewPage1";
+import Login from "layouts/LoginPage";
+import SignUp from "layouts/SignupPage";
 
 const routes = [
   {
@@ -84,7 +84,8 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
     component: <Billing />,
-  } */{
+  } */
+  {
     type: "collapse",
     name: "View Feedbacks",
     key: "viewFeedbacks",

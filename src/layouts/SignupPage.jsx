@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/logout.css'
-function NewPage() {
+function SignupPage() {
   return (
     <div className="login-page">
       <h1 className="login-title">SignUp</h1>
@@ -18,5 +18,4 @@ function NewPage() {
     </div>
   );
 }
-
-export default NewPage;
+export default SignupPage;

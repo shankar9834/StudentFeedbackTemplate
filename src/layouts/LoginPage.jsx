@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/logout.css'
 
-function NewPage() {
+function LoginPage() {
   return (
   <>
     <div className="login-page">
@@ -22,4 +22,4 @@ function NewPage() {
   );
 }
 
-export default NewPage;
+export default LoginPage;
