@@ -1,13 +1,19 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import Table from './Table';
+import { display } from '@mui/system';
+import { position } from 'stylis';
+import { useState } from 'react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
   
 
-const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
+const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
+
+  const [isActiveForm,setIsActiveForm]=useState(feedbacks[ind].isActive)
 
     const btnStyles={
         fontSize: '16px',
@@ -20,8 +26,51 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
     cursor: 'pointer',
     transition: 'all 0.3s ease-in-out',
     marginTop: '40px',
-    marginLeft:'150px'
+    marginLeft:'350px',
+    position:'relative',
+    top:'-300px',
+    left:'400px'
     }
+  
+    const closeBtnStyles={
+      fontSize: '16px',
+    fontWeight: '700',
+    color: '#fff',
+    backgroundColor: '#333',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease-in-out',
+    marginTop: '40px',
+    marginLeft:'350px',
+    position:'relative',
+    top:'-300px',
+    left:'100px'
+
+    }
+
+    const handleCloseForm=()=>{
+
+      // console.log(feedbacks[ind]._id)
+
+       const sendReq=async()=>{
+           const res=await fetch(`http://localhost:3005/feedback/active/${feedbacks[ind]._id}`)
+           
+           if(res.ok)
+           {
+             feedbacks[ind].isActive=!feedbacks[ind].isActive;
+             setIsActiveForm(feedbacks[ind].isActive);
+            // console.log(feedbacks[ind].isActive)
+           }
+           
+
+       }
+
+       sendReq();
+
+    } 
+    
 
     //console.log(dataForChart);
      var agree=dataForChart.agree
@@ -63,10 +112,21 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart})=>{
     }
    // console.log('showing chart for', ind)
     return (
-        <div style={{width:'400px' , height:'400px',marginLeft:"460px",marginTop:'50px'}}>
+      <div style={{marginLeft:'300px'}}>
+        <div style={{width:'400px' , height:'400px',marginLeft:"260px",marginTop:'50px'}}>
     <Pie data={data} />
-    <button onClick={handleBtn} style={btnStyles}>go back</button>
+    
+   
     </div>
+    <div style={{width:'500px',marginLeft:'230px'}}>
+      <Table data={dataForTable}></Table>
+
+    </div>
+    <button onClick={handleBtn} style={btnStyles}>go back</button>
+    {isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Close Form</button>}
+    {!isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Open Form</button>}
+    </div>
+    
     )
 }
 
