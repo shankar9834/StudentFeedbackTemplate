@@ -47,6 +47,10 @@
     
   }
   
+  .branch{
+    width: 150px;
+    height: 35px;
+  }
   .heading {
     color: #0066cc;
     font-size: 36px;

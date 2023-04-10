@@ -14,6 +14,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logg from '../images/scene.avif';
 import {useAuthContext} from '../hooks/useAuthContext';
+import {useState} from 'react'
+import { Navigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,6 +36,8 @@ const theme = createTheme();
 export default function SignUpTeacher() {
 
   const {dispatchs}=useAuthContext();
+  const [error,setError]=useState(false);
+  const [navigate,setNavigate]=useState(false)
 
   const handleSubmit = async(event) => {
    
@@ -58,8 +65,13 @@ export default function SignUpTeacher() {
           localStorage.setItem('user',JSON.stringify(res));
 
           dispatchs({type:'LOGIN',payload:res});
-          window.location.href='/';
-      } 
+         // window.location.href='/';
+
+         setNavigate(true);
+         
+      } else{
+           setError(true);
+      }
   };
   
   return (
@@ -154,7 +166,12 @@ export default function SignUpTeacher() {
         <Copyright sx={{ mt: 5 }} />
       </div>
     </ThemeProvider>
+    {error&&<Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="error" onClose={() => {setError(false)}}>email already exist, please use other email</Alert>
+      
+    </Stack>}
   </div>
+  {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
   </>
  );
 }

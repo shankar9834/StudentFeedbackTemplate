@@ -1,11 +1,46 @@
 import { useState, useEffect } from "react";
 import "./styles/createFeedback.css"
+import { Navigate } from "react-router-dom";
+
+//mui changes 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+//end mui changes
 
 import {useAuthContext} from "../hooks/useAuthContext"
 
 const optionList=["Agree","Strongly Agree","Disagree","Strongly Disagree"]
+var id='6430786566212bc52c87640b';
 
 const CreateFeedback = () => {
+
+    const [branch, setBranch] = useState('');
+    const [flag,setFlag]=useState(false)
+    const handleChange = (event) => {
+        setBranch(event.target.value);
+        console.log(event.target.value)
+      };
+
+    const [allBranches,setAllBranches]=useState([])
+    
+    useEffect(()=>{
+         
+        const getBranches=async()=>{
+            const branches=await fetch('http://localhost:3005/getAllClasses');
+            const data=await branches.json();
+              setAllBranches(data.classes)
+              
+              setFlag(true)
+            //console.log(data)
+        }
+
+         getBranches();
+
+    },[])
+    
+    const [navigate,setNavigate]=useState(false)
     const [addingQ, setAddingQ] = useState(false);
     const [question, setQuestion] = useState("");
     const [questionList, setQuestionList] = useState([]);
@@ -57,9 +92,10 @@ const CreateFeedback = () => {
             const formData={
                 teacher:user.teacher._id,
                 subject:subject,
-                questions:questionList
+                questions:questionList,
+                branch_id:branch
             }
-
+          console.log(formData)
           //  console.log(cdata);
 
             const subForm=async()=>{
@@ -76,20 +112,46 @@ const CreateFeedback = () => {
                 console.log(data);
             }
         
-            subForm();
-
+           subForm();
+          
             // change this below method and use the method to redirect to different page using react
-            window.location.href='/viewFeedbacks'
+           // window.location.href='/viewFeedbacks'
+           setNavigate(true)  
 
         
     }
 
 
     return (
+
+        <div>
         <div className="createFeedback">
+            
             <h1 className="heading">Create Feedback</h1>
             <label for="subj">subject name</label>
             <input type="text" id="subj" className="int" onChange={handleSubject}/>
+            
+            <FormControl sx={{ ml: 0.8, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-autowidth-label">Branch</InputLabel>
+        <Select
+          labelId="demo-simple-select-autowidth-label"
+          id="demo-simple-select-autowidth"
+          className="branch"
+          value={branch}
+          onChange={handleChange}
+          autoWidth
+          label="branch"
+        >
+         {!allBranches.length&&<p>loading</p>}   
+         {allBranches.length&&allBranches.map((bran)=>{
+            return <MenuItem value={bran._id}>{bran.branch}</MenuItem>
+         })} 
+         {/*  <MenuItem value={id}>IT20</MenuItem>
+          <MenuItem value={'52'}>IT21</MenuItem> */}
+          
+        </Select>
+      </FormControl>
+           
 
             <div className="allQuestions">
            {questionList.map((ques,i)=>{
@@ -128,6 +190,8 @@ const CreateFeedback = () => {
                
             </div>
 
+        </div>
+        {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
         </div>
     );
 }

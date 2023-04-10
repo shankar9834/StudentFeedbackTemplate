@@ -1,10 +1,14 @@
 import { useAuthContext } from '../hooks/useAuthContext';
 import "./styles/logout.css"
 import man from "../images/man_sitting.jpg"
+import { Navigate } from "react-router-dom";
+import {useState} from 'react'
 
 const Logout = () => {
 
   const { dispatchs } = useAuthContext();
+  const [navigate,setNavigate]=useState(false)
+
 
   const handleLogout = () => {
 
@@ -13,9 +17,11 @@ const Logout = () => {
     localStorage.removeItem('user')
     dispatchs({ type: 'LOGOUT' })
 
-    //change below method to redirect
+   
 
-    window.location.href = '/'
+   // window.location.href = '/'
+   setNavigate(true);
+
   }
   return (
     <>
@@ -34,6 +40,7 @@ const Logout = () => {
           <button className="logout btn" onClick={handleLogout}>Yes, Logout</button>
         </div>
       </div>
+      {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
     </>
   );
 }

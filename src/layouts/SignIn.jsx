@@ -13,6 +13,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles'; 
 import logg from '../images/scene.avif'
 import {useAuthContext} from '../hooks/useAuthContext'; 
+import { Navigate } from "react-router-dom";
+import {useState} from 'react'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 function Copyright(props) {
   return (
@@ -29,6 +33,8 @@ const theme = createTheme();
 export default function SignIn() {
 
    const {dispatchs}=useAuthContext();
+   const [navigate,setNavigate]=useState(false)
+   const [error,setError]=useState(false)
 
   const handleSubmit = async(event) => {
     event.preventDefault();
@@ -57,7 +63,11 @@ export default function SignIn() {
         //console.log(res.student)
         localStorage.setItem('user',JSON.stringify(res));
         dispatchs({type:'LOGIN',payload:res}); 
-        window.location.href='/';
+       // window.location.href='/';
+
+       setNavigate(true);
+    }else{
+      setError(true)
     } 
 };
 
@@ -130,6 +140,11 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
+    {error&&<Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="error" onClose={() => {setError(false)}}>email or password is wrong</Alert>
+      
+    </Stack>}
     </div>
   );
 }

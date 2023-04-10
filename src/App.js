@@ -46,6 +46,7 @@ import SignInStudent from "./layouts/SignIn"
 import SignUpStudent from "./layouts/SignUpMUI"
 import MyFeedbacks from "layouts/MyFeedbacks";
 
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -128,6 +129,14 @@ export default function App() {
           if (user) {
             return <Route exact path={route.route} element={route.component} key={route.key} />;
           }
+        }
+        else if(route.key=='logout')
+        {
+          if(user)
+          {
+            return <Route exact path={route.route} element={route.component} key={route.key} />;
+          }
+
         }
         else {
           return <Route exact path={route.route} element={route.component} key={route.key} />;

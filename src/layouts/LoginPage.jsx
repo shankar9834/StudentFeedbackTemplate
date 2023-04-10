@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/logout.css'
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
@@ -10,11 +11,13 @@ function LoginPage() {
       <ul className="login-options">
         
         <li className="login-option">
-          <a href="/authentication/teacher-signIn" className="login-link teacher-login-link">Login as Teacher</a>
+          {/* <a href="/authentication/teacher-signIn" className="login-link teacher-login-link">Login as Teacher</a> */}
+          <Link to="/authentication/teacher-signIn" className="login-link teacher-login-link">Login as Teacher</Link>
         </li>
         
         <li className="login-option">
-          <a href="/authentication/sign-in" className="login-link student-login-link">Login as Student</a>
+          {/* <a href="/authentication/sign-in" className="login-link student-login-link">Login as Student</a> */}
+          <Link to="/authentication/sign-in" className="login-link student-login-link">Login as Student</Link>
         </li>
       </ul>
     </div>

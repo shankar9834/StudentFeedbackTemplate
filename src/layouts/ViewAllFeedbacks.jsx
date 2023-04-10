@@ -21,7 +21,7 @@ const ViewAllFeedbacks=()=>{
           
             setFeedbacks(data.allFeedbacks);
           
-          // console.log(data.allFeedbacks)
+          //console.log(data.allFeedbacks)
         }
         getFeedbacks();
        // console.log(feedbacks)
@@ -97,13 +97,14 @@ const ViewAllFeedbacks=()=>{
                 return(
                    
                     <div key={i} className="feedback">
-                        <li className='SRNO'>{i+1}</li>
+                        <li className='SRNO'>{feedback.branch_id.branch}</li>
                         <li className='subject'>
                         {feedback.subject}
                         </li>
                         <li className='teacher'>
                             {feedback.teacher.name}
                         </li>
+                        
                         {user&&<button value={i+1} onClick={handleView}>view</button>}
                         
                     </div>

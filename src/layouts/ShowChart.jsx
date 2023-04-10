@@ -5,6 +5,7 @@ import Table from './Table';
 import { display } from '@mui/system';
 import { position } from 'stylis';
 import { useState } from 'react';
+import { WindowSharp } from '@mui/icons-material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -61,6 +62,8 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
            {
              feedbacks[ind].isActive=!feedbacks[ind].isActive;
              setIsActiveForm(feedbacks[ind].isActive);
+
+             window.location.href='/myFeedbacks'
             // console.log(feedbacks[ind].isActive)
            }
            
@@ -125,6 +128,7 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
     <button onClick={handleBtn} style={btnStyles}>go back</button>
     {isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Close Form</button>}
     {!isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Open Form</button>}
+    {!isActiveForm&&<p style={{marginLeft:'100px',marginBottom:'100px'}}>summary:- {feedbacks[ind].summary}</p>}
     </div>
     
     )
