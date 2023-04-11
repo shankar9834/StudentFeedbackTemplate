@@ -30,6 +30,7 @@ import createCache from "@emotion/cache";
 // Material Dashboard 2 React routes
 import routes from "routes";
 
+
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
@@ -46,6 +47,9 @@ import SignInStudent from "./layouts/SignIn"
 import SignUpStudent from "./layouts/SignUpMUI"
 import MyFeedbacks from "layouts/MyFeedbacks";
 
+import studentRoutes from "studentRoutes";
+import teacherRoutes from "teacherRoutes";
+import generalRoutes from "generalRoutes";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -199,14 +203,30 @@ export default function App() {
       <CssBaseline />
       {layout === "dashboard" && (
         <>
-          <Sidenav
+          {!user&&<Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="IIITL"
-            routes={routes}
+            routes={generalRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
-          />
+          />}
+          {user&&user.student&&<Sidenav
+            color={sidenavColor}
+            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+            brandName="IIITL"
+            routes={studentRoutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />}
+          {user&&user.teacher&&<Sidenav
+            color={sidenavColor}
+            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+            brandName="IIITL"
+            routes={teacherRoutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />}
           <Configurator />
           {configsButton}
         </>
