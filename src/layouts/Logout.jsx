@@ -23,6 +23,11 @@ const Logout = () => {
    setNavigate(true);
 
   }
+
+  const handleCancel=()=>{
+    setNavigate(true);
+  }
+  
   return (
     <>
       <div className="text-center card">
@@ -36,7 +41,7 @@ const Logout = () => {
           <div className='desc'>
             Are You sure You want to Logout?
           </div>
-          <button className="cancel btn" onClick={handleLogout}>Cancel</button>
+          <button className="cancel btn" onClick={handleCancel}>Cancel</button>
           <button className="logout btn" onClick={handleLogout}>Yes, Logout</button>
         </div>
       </div>
