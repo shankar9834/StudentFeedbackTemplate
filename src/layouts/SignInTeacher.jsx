@@ -49,8 +49,14 @@ export default function SignInTeacher() {
       email:data.get('email'),
       password:data.get('password')
      }
-    console.log(teacher)
-     const resp=await fetch('http://localhost:3005/teacher/login',{
+
+     var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+     var url='http://localhost:3005/teacher/login'
+     var newUrl=`${baseUrl}/teacher/login`
+     console.log(newUrl);
+    //console.log(teacher)
+    
+    const resp=await fetch(newUrl,{
       method:'POST',
       body: JSON.stringify(teacher) ,
       headers:{

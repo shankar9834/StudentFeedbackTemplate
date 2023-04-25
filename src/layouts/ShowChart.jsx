@@ -73,9 +73,10 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable,margs1
     const handleCloseForm=()=>{
 
       // console.log(feedbacks[ind]._id)
-
+      var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app';
+      var url=`http://localhost:3005/feedback/active/${feedbacks[ind]._id}`
        const sendReq=async()=>{
-           const res=await fetch(`http://localhost:3005/feedback/active/${feedbacks[ind]._id}`)
+           const res=await fetch(`${baseUrl}/feedback/active/${feedbacks[ind]._id}`)
            
            if(res.ok)
            {

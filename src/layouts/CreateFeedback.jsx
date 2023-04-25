@@ -38,10 +38,12 @@ const CreateFeedback = () => {
 
     const [allBranches,setAllBranches]=useState([])
     
+    var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+    var url='http://localhost:3005/getAllClasses'
     useEffect(()=>{
          
         const getBranches=async()=>{
-            const branches=await fetch('http://localhost:3005/getAllClasses');
+            const branches=await fetch(`${baseUrl}/getAllClasses`);
             const data=await branches.json();
               setAllBranches(data.classes)
               
@@ -115,7 +117,9 @@ const CreateFeedback = () => {
 
             const subForm=async()=>{
               
-                const res=await fetch('http://localhost:3005/feedback',{
+                var url='http://localhost:3005/feedback';
+
+                const res=await fetch(`${baseUrl}/feedback`,{
                     method:'POST',
                     body: JSON.stringify(formData),
                     headers:{

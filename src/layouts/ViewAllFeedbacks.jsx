@@ -12,11 +12,12 @@ const ViewAllFeedbacks=({curr})=>{
     const [val,setVal]=useState(-1)
     const {user,dispatchs}=useAuthContext();
     
-    
+    var url=`http://localhost:3005/feedback/allFeedbacks/${curr}`
+    var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
       useEffect(()=>{
         
         const getFeedbacks=async()=>{
-            const res=await fetch(`http://localhost:3005/feedback/allFeedbacks/${curr}`)
+            const res=await fetch(`${baseUrl}/feedback/allFeedbacks/${curr}`)
             const data=await res.json()
           
             setFeedbacks(data.allFeedbacks);

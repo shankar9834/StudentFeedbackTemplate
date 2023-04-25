@@ -41,6 +41,9 @@ function Dashboard() {
   
   const isAdmin=user&&user.teacher&&user.teacher.email==='Admin@gmail.com'
     
+
+  var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+
    
   const handleBranch=(e)=>{
        setBranch(e.target.value)
@@ -55,8 +58,8 @@ function Dashboard() {
     }
     
     const sendReq=async()=>{
-              
-      const res=await fetch('http://localhost:3005/createClass',{
+              var url='http://localhost:3005/createClass'
+      const res=await fetch(`${baseUrl}/createClass`,{
         method:'POST',
         body: JSON.stringify(data),
         headers:{
@@ -71,11 +74,14 @@ function Dashboard() {
     setBranch('');
   }
 
+
   useEffect(()=>{
+
       
       const getData=async()=>{
          
-        const res=await fetch('http://localhost:3005/dataForDashboard')
+        var url='http://localhost:3005/dataForDashboard'
+        const res=await fetch(`${baseUrl}/dataForDashboard`)
         const data=await res.json();
        // console.log(data)
        

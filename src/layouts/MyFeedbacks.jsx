@@ -24,8 +24,18 @@ const MyFeedbacks=({teacherId,flag})=>{
        
         len=teacherId.length
      }
-      const fetchUrl=len>0?`http://localhost:3005/feedback/myFeedbacks/${teacherId}`:`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
-     useEffect(()=>{
+
+     var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+    /*   const fetchUrl=len>0?`http://localhost:3005/feedback/myFeedbacks/${teacherId}`:`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}` */
+     
+    var url1=`https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app/feedback/myFeedbacks/${teacherId}`
+    var url2=`https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app/feedback/myFeedbacks/${user.teacher._id}`
+
+    const fetchUrl=len>0?url1:url2
+    
+   // console.log('fetcg ',fetchUrl)
+    
+      useEffect(()=>{
 
        // const fet=`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
        // console.log(fet)

@@ -9,10 +9,13 @@ const BranchWiseFeedbacks=()=> {
      const [curr,setCurrBranch]=useState('');
      const [viewFeedbackToggle,setViewFeedbackToggle]=useState(false);
 
+     var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+
     useEffect(()=>{
          
       const getBranches=async()=>{
-          const branches=await fetch('http://localhost:3005/getAllClasses');
+          /* const branches=await fetch('http://localhost:3005/getAllClasses'); */
+          const branches=await fetch(`${baseUrl}/getAllClasses`); 
           const data=await branches.json();
           
          // console.log(data.classes)

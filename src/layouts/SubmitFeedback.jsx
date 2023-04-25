@@ -48,9 +48,14 @@ useEffect(()=>{
 
          console.log(data)
 
+
+         var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+
         const sendSubmitFeedback = async () => {
 
-             const res = await fetch('http://localhost:3005/feedback/submitFeedback', {
+               var url='http://localhost:3005/feedback/submitFeedback'
+
+             const res = await fetch(`${baseUrl}/feedback/submitFeedback`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -58,7 +63,11 @@ useEffect(()=>{
                 }
             })
             const getData = await res.json() 
-            // console.log(getData)
+           //  console.log(getData)
+          
+             
+           window.location.href="/viewFeedbacks"
+            
 
         }
 
@@ -66,8 +75,8 @@ useEffect(()=>{
 
         //setViewSubmit(false)
         //setToggleView(false)
-
-        window.location.href="/viewFeedbacks"
+       
+      //  window.location.href="/viewFeedbacks"
       //setNavigate(true);
 
     }

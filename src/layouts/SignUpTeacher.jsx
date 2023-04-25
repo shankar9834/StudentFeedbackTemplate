@@ -50,7 +50,10 @@ export default function SignUpTeacher() {
       password: data.get('password'),
     };
 
-    const resp=await fetch('http://localhost:3005/teacher/register',{
+    var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+    var url='http://localhost:3005/teacher/register'
+
+    const resp=await fetch(`${baseUrl}/teacher/register`,{
         method:'POST',
         body: JSON.stringify(formData) ,
         headers:{
