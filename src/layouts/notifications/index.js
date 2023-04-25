@@ -51,7 +51,9 @@ function Notifications() {
    useEffect(()=>{
           
         const getNotification=async()=>{
-          const res=await fetch('http://localhost:3005/allNotifications')
+          var url='http://localhost:3005/allNotifications'
+          var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
+          const res=await fetch(`${baseUrl}/allNotifications`)
 
           const data=await res.json();
 
