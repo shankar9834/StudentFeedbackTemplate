@@ -5,18 +5,18 @@ import "./styles/viewAllFeedbacks.css"
 
 import SubmitFeedback from './SubmitFeedback'
 
-const ViewAllFeedbacks=()=>{
+const ViewAllFeedbacks=({curr})=>{
     const [feedbacks,setFeedbacks]=useState([]);
     const [toggleView,setToggleView]=useState(false);
     const [viewSubmit,setViewSubmit]=useState(false);
     const [val,setVal]=useState(-1)
-
-     const {user,dispatchs}=useAuthContext();
-
-     useEffect(()=>{
+    const {user,dispatchs}=useAuthContext();
+    
+    
+      useEffect(()=>{
         
         const getFeedbacks=async()=>{
-            const res=await fetch('http://localhost:3005/feedback/allFeedbacks')
+            const res=await fetch(`http://localhost:3005/feedback/allFeedbacks/${curr}`)
             const data=await res.json()
           
             setFeedbacks(data.allFeedbacks);
@@ -24,10 +24,16 @@ const ViewAllFeedbacks=()=>{
           //console.log(data.allFeedbacks)
         }
         getFeedbacks();
-       // console.log(feedbacks)
+       
       
 
      },[]) 
+    // console.log(feedbacks)
+
+    
+     
+
+     
 
 
      
@@ -88,7 +94,7 @@ const ViewAllFeedbacks=()=>{
 
     return (
         
-      <div>
+      <div className="backgrd">
         {!viewSubmit&&<div className='viewFeedbacks' style={{marginLeft:mar}}>
             {!toggleView&&<h1>All Feedback Forms</h1>} 
              <div className='feeds'>
@@ -104,13 +110,22 @@ const ViewAllFeedbacks=()=>{
                         <li className='teacher'>
                             {feedback.teacher.name}
                         </li>
-                        
+                        <li className='teacher'>
+                            {new Date(feedback.createdAt).toLocaleString('en-GB',{timeZone:'IST'})}
+                        </li>
                         {user&&<button value={i+1} onClick={handleView}>view</button>}
                         
                     </div>
                      
                 )
                })}
+               
+               {!toggleView&&feedbacks.length==0&&
+               <div>
+                <div className='feedback'>No feedback available</div>
+                
+                </div>}
+
                {toggleView&&<div className='fedd'> <div className="feedback" style={{width:"600px",height:"600px",marginLeft:"420px"}}>
               
                 <h2>Subject Name: {feedbacks[val-1].subject}</h2>   

@@ -14,13 +14,26 @@ import {useAuthContext} from "../hooks/useAuthContext"
 const optionList=["Agree","Strongly Agree","Disagree","Strongly Disagree"]
 var id='6430786566212bc52c87640b';
 
+var demoQ=[{
+    question:"What is your favourite sport",
+    options:optionList
+},
+{
+    question:"What is your favourite dish",
+    options:optionList
+}
+
+]
+
+
 const CreateFeedback = () => {
 
     const [branch, setBranch] = useState('');
     const [flag,setFlag]=useState(false)
-    const handleChange = (event) => {
+   
+    const handleBranchChange = (event) => {
         setBranch(event.target.value);
-        console.log(event.target.value)
+       // console.log(event.target.value)
       };
 
     const [allBranches,setAllBranches]=useState([])
@@ -44,8 +57,10 @@ const CreateFeedback = () => {
     const [addingQ, setAddingQ] = useState(false);
     const [question, setQuestion] = useState("");
     const [questionList, setQuestionList] = useState([]);
+   // const [questionList, setQuestionList] = useState(demoQ);
     const [subject,setSubject]=useState("");  
 
+    
     const {user,dispatchs}=useAuthContext();
     
     const handleQuestion = (e) => {
@@ -138,7 +153,7 @@ const CreateFeedback = () => {
           id="demo-simple-select-autowidth"
           className="branch"
           value={branch}
-          onChange={handleChange}
+          onChange={handleBranchChange}
           autoWidth
           label="branch"
         >

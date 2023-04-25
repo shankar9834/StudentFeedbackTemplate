@@ -1,6 +1,8 @@
 import "./styles/submitFeedback.css"
 import { useAuthContext } from '../hooks/useAuthContext'
 import {useState,useEffect} from 'react'
+import { Navigate } from "react-router-dom";
+import { WindowSharp } from "@mui/icons-material";
 
 const optionList = ["Agree", "Strongly Agree", "Disagree", "Strongly Disagree"]
 
@@ -9,7 +11,7 @@ const answers = []
 const SubmitFeedback = ({ feedbacks, val, setViewSubmit, setToggleView }) => {
 
      const [text, setText]=useState("");
-
+     const [navigate,setNavigate]=useState(false)
 
     const { user, dispatchs } = useAuthContext();
 
@@ -30,11 +32,8 @@ useEffect(()=>{
     const handleOptionChange = (e) => {
 
         // console.dir(e.target.id);
-
         answers[e.target.id].selectedOption = e.target.value;
-
-        // console.log(answers)
-
+        console.log(answers)
     }
 
     const handleSubmitFeedback = () => {
@@ -63,13 +62,13 @@ useEffect(()=>{
 
         }
 
-        sendSubmitFeedback();
+       sendSubmitFeedback();
 
-        setViewSubmit(false)
-        setToggleView(false)
+        //setViewSubmit(false)
+        //setToggleView(false)
 
-        //chnage below method of redirect and add context for feedbacks  
-        window.location.href = '/viewFeedbacks'
+        window.location.href="/viewFeedbacks"
+      //setNavigate(true);
 
     }
 
@@ -89,7 +88,7 @@ useEffect(()=>{
     return (
         <div className="viewFeedbacks">
             <h1>Submit Feedback</h1>
-            <div className="feedback" style={{ width: "700px", height: "900px", marginLeft: "420px" }}>
+            <div className="feedback" style={{ width: "700px", maxHeight: "1800px", marginLeft: "420px" }}>
                 <h2>Subject Name: {feedbacks[val - 1].subject}</h2>
                 <h2>Teacher Name:{feedbacks[val - 1].teacher.name}</h2>
                 <div><ul>
@@ -116,6 +115,7 @@ useEffect(()=>{
                 <button onClick={handleGOBack}>go back </button>
 
             </div>
+            {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
         </div>
     )
 }

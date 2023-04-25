@@ -21,11 +21,82 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import {useState, useEffect} from 'react'
+import MDTypography from "components/MDTypography";
+import {useAuthContext} from "../../hooks/useAuthContext"
 
 function Dashboard() {
   /* const { sales, tasks } = reportsLineChartData; */
 
+  const [branch,setBranch]=useState('')
+
+  const [students,setStudents]=useState()
+  const [allTeachers,setAllTeachers]=useState()
+  
+  const {user}=useAuthContext()
+  
+  const isAdmin=user&&user.teacher&&user.teacher.email==='Admin@gmail.com'
+    
+   
+  const handleBranch=(e)=>{
+       setBranch(e.target.value)
+  }
+
+  const handleClick=()=>{
+
+    //console.log(branch)
+     
+    const data={
+      branch
+    }
+    
+    const sendReq=async()=>{
+              
+      const res=await fetch('http://localhost:3005/createClass',{
+        method:'POST',
+        body: JSON.stringify(data),
+        headers:{
+            'Content-Type': 'application/json'
+          }
+    })
+
+    }
+
+    sendReq();
+    
+    setBranch('');
+  }
+
+  useEffect(()=>{
+      
+      const getData=async()=>{
+         
+        const res=await fetch('http://localhost:3005/dataForDashboard')
+        const data=await res.json();
+       // console.log(data)
+       
+        setStudents(data.student_count) 
+        setAllTeachers(data.teachers)
+       // console.log(allTeachers)
+
+      }
+
+      getData()
+
+      
+     
+      
+      
+         
+  },[])
+
   return (
+
+    
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
@@ -36,109 +107,61 @@ function Dashboard() {
                 color="dark"
                 icon="weekend"
                 title="Total Students"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
+                count={students}
+                ele="true"
+                teacher="false"
+                
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Feedback Submitted By"
-                count="200"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               {/* <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
+                icon="leaderboard"
+                title="Create Branch"
+                count={500}
+                ele="false"
               /> */}
+               {isAdmin&& <Box component="form"
+                     sx={{'& > :not(style)': { m: 1, width: '25ch' }, }}
+                    noValidate
+                    autoComplete="off"
+                    >
+                  <TextField id="filled-basic" label="Create Branch" variant="filled" value={branch} onChange={handleBranch} />
+                  <Stack spacing={2} direction="row">
+                <Button variant="contained" color="success"  onClick={handleClick}> Create</Button>
+      
+                </Stack>
+                </Box>}
+               
+              
             </MDBox>
           </Grid>
         </Grid>
-        <MDBox mt={4.5}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              {/* <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox> */}
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                {/* <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                /> */}
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              {/* <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
-              </MDBox> */}
-            </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox>
+        
+       { isAdmin&&<MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+             
+              <MDBox mb={1.5} mt={5}>
+                {/* <MDTypography variant="h6" gutterBottom sx={{mb:5}}>Teachers Leaderboard</MDTypography> */}
+               <ComplexStatisticsCard
+                color="dark"
+                icon="leaderboard"
+                title="Teachers"
+                ele="false"
+                teacher="true"
+                allTeachers={allTeachers}
+              />
+               
+              </MDBox>
+              
             </Grid>
-           
+            
           </Grid>
-        </MDBox>
+          
+          
+        </MDBox>}
       </MDBox>
       <Footer />
     </DashboardLayout>

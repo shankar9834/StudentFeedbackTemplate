@@ -45,6 +45,7 @@ import SignUpTeacher from "./layouts/SignUpTeacher"
 import SignInTeacher from "./layouts/SignInTeacher"
 import SignInStudent from "./layouts/SignIn"
 import SignUpStudent from "./layouts/SignUpMUI"
+import ViewAllFeedbacks from "layouts/ViewAllFeedbacks";
 import MyFeedbacks from "layouts/MyFeedbacks";
 
 import studentRoutes from "studentRoutes";
@@ -240,7 +241,8 @@ export default function App() {
        <Route  path="/authentication/sign-in" element={<SignInStudent/>}></Route>
        <Route  path="/authentication/sign-up" element={<SignUpStudent/>}></Route>
 
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
+         <Route path="*" element={<Navigate to="/viewFeedbacks" />} /> 
       </Routes>
     </ThemeProvider>
   );

@@ -59,6 +59,7 @@ import SignUpTeacher from "layouts/SignUpTeacher";
 import MyFeedbacks from "layouts/MyFeedbacks";
 import Login from "layouts/LoginPage";
 import SignUp from "layouts/SignupPage";
+import BranchWiseFeedbacks from "layouts/BranchWiseFeedbacks";
 
 const generalRoutes = [
     

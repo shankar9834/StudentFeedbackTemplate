@@ -59,6 +59,7 @@ import SignUpTeacher from "layouts/SignUpTeacher";
 import MyFeedbacks from "layouts/MyFeedbacks";
 import Login from "layouts/LoginPage";
 import SignUp from "layouts/SignupPage";
+import BranchWiseFeedbacks from "layouts/BranchWiseFeedbacks";
 
 const routes = [
   {
@@ -77,6 +78,14 @@ const routes = [
     route: "/tables",
     component: <CreateFeedback />,
   },
+  {
+    type: "collapse",
+    name: "Branch Wise Feedbacks",
+    key: "branch",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/branchWise",
+    component: <BranchWiseFeedbacks/>,
+  },
   /* {
     type: "collapse",
     name: "View Feedbacks",
@@ -91,7 +100,7 @@ const routes = [
     key: "viewFeedbacks",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
-    component: <ViewAllFeedbacks />,
+    component: <ViewAllFeedbacks curr='All'/>,
   } , 
   {
     type: "collapse",

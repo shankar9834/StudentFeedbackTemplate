@@ -4,17 +4,36 @@ import { Pie } from 'react-chartjs-2';
 import Table from './Table';
 import { display } from '@mui/system';
 import { position } from 'stylis';
-import { useState } from 'react';
+import { Navigate } from "react-router-dom";
+import {useState} from 'react'
 import { WindowSharp } from '@mui/icons-material';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import Typography from '@mui/material/Typography';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
   
 
-const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
+const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable,margs1})=>{
 
   const [isActiveForm,setIsActiveForm]=useState(feedbacks[ind].isActive)
+  const [navigate,setNavigate]=useState(false)
+
+
+  //setting margins when requested from admin dashboard 
+  var marg=300
+  var mG=350
+  if(margs1==0)
+  {
+      marg=0
+      mG=0
+  }
+
 
     const btnStyles={
         fontSize: '16px',
@@ -27,7 +46,7 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
     cursor: 'pointer',
     transition: 'all 0.3s ease-in-out',
     marginTop: '40px',
-    marginLeft:'350px',
+    marginLeft:mG,
     position:'relative',
     top:'-300px',
     left:'400px'
@@ -63,7 +82,9 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
              feedbacks[ind].isActive=!feedbacks[ind].isActive;
              setIsActiveForm(feedbacks[ind].isActive);
 
-             window.location.href='/myFeedbacks'
+            // window.location.href='/myFeedbacks'
+              
+             setNavigate(true);
             // console.log(feedbacks[ind].isActive)
            }
            
@@ -80,26 +101,29 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
      var disagree=dataForChart.disagree
      var stronglyAgree=dataForChart.stronglyAgree
      var stronglyDisagree=dataForChart.stronglyDisagree
-     
+    
+ 
 
     const data = {
-        labels: ['Agree','Disagree', 'Strongly Agree', 'Strogly Disagree'],
+
+        labels: ['Agree','Strongly Agree','Disagree',  'Strogly Disagree'],
         datasets: [
           {
             label: 'No of students',
-            data: [agree, disagree, stronglyAgree, stronglyDisagree],
+            data: [agree,stronglyAgree, disagree,  stronglyDisagree],
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
               'rgba(54, 162, 235, 0.2)',
               'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)'
+              'rgba(255, 99, 132, 0.2)',
+              
               
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
+              'rgba(75, 192, 192, 1)',
               'rgba(54, 162, 235, 1)',
               'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)'
+              'rgba(255, 99, 132, 1)'
               
             ],
             borderWidth: 1,
@@ -107,7 +131,7 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
         ],
       };
    
-  
+     
     const handleBtn=()=>{
 
        // console.log('clickkinng gg', ind)
@@ -115,20 +139,28 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable})=>{
     }
    // console.log('showing chart for', ind)
     return (
-      <div style={{marginLeft:'300px'}}>
+      <div style={{marginLeft:marg}}>
         <div style={{width:'400px' , height:'400px',marginLeft:"260px",marginTop:'50px'}}>
     <Pie data={data} />
     
    
+    </div>
+    <div>
+    <Typography variant="h4" sx={{ ml: 35,mt:5,mb:5 }} gutterBottom>
+        This Feedback is Submitted by {feedbacks[ind].submission.length} Students
+      </Typography>
     </div>
     <div style={{width:'500px',marginLeft:'230px'}}>
       <Table data={dataForTable}></Table>
 
     </div>
     <button onClick={handleBtn} style={btnStyles}>go back</button>
+
     {isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Close Form</button>}
     {!isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Open Form</button>}
-    {!isActiveForm&&<p style={{marginLeft:'100px',marginBottom:'100px'}}>summary:- {feedbacks[ind].summary}</p>}
+   {/*  {!isActiveForm&&<p style={{marginLeft:'100px',marginBottom:'100px'}}>summary:- {feedbacks[ind].summary}</p>} */}
+    {!isActiveForm&&<Typography variant="h5"  sx={{ml:30,mb:10}}>summary:- {feedbacks[ind].summary}</Typography>}
+    {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
     </div>
     
     )

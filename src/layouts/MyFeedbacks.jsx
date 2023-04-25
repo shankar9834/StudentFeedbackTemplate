@@ -5,32 +5,45 @@ import "./styles/myFeedbacks.css"
 import ShowChart from './ShowChart'
 
 
-const MyFeedbacks=()=>{
+const MyFeedbacks=({teacherId,flag})=>{
     const [feedbacks,setFeedbacks]=useState([]);
     const [toggleView,setToggleView]=useState(false);
     const [viewChart,setViewChart]=useState(false);
     const [val,setVal]=useState(-1)
 
-   
+    const dataForChart=[];
+
+    const dataForTable=[];
 
      const {user,dispatchs}=useAuthContext();
-
+  
+     var len=0;
+     console.log('teacher id is',teacherId)
+     if(teacherId&&teacherId.length>0)
+     {
+       
+        len=teacherId.length
+     }
+      const fetchUrl=len>0?`http://localhost:3005/feedback/myFeedbacks/${teacherId}`:`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
      useEffect(()=>{
-        const fet=`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
+
+       // const fet=`http://localhost:3005/feedback/myFeedbacks/${user.teacher._id}`
        // console.log(fet)
-        
+        const fet=fetchUrl
+
         const getFeedbacks=async()=>{
             const res=await fetch(fet)
             const data=await res.json()
           
             setFeedbacks(data.allFeedbacks);
+           //console.log(data.allFeedbacks)
           
           // console.log(data.allFeedbacks)
         }
         getFeedbacks();
-       // console.log(feedbacks)
-      
-
+       
+      //  console.log(feedbacks)
+        
      },[]) 
 
      
@@ -59,19 +72,22 @@ const MyFeedbacks=()=>{
 
      // setting margine for view feedback
      var mar=400;
+     var mar2=420;
      if(toggleView)
      {
         mar=100
      }
      
      let canSubmit=false;
-
+   
+   if(flag)
+   {
+    mar=0
+    mar2=0
+   }
     
    
-
-    const dataForChart=[];
-
-    const dataForTable=[];
+  
      
     
        const calculateDataForTable=()=>{
@@ -137,7 +153,7 @@ const MyFeedbacks=()=>{
           
        }
 
-      calculateDataForTable();
+      
     
    
 
@@ -190,7 +206,14 @@ const MyFeedbacks=()=>{
        
      }
 
-     calculateDataForChart();
+    
+       calculateDataForTable();
+       calculateDataForChart();
+
+    
+            
+     
+       
     
 
     // console.log(dataForChart)
@@ -216,13 +239,16 @@ const MyFeedbacks=()=>{
                         <li className='teacher'>
                             {feedback.teacher.name}
                         </li>
+                        <li className='teacher'>
+                        {new Date(feedback.createdAt).toLocaleString('en-GB',{timeZone:'IST'})}
+                        </li>
                         {user&&<button value={i+1} onClick={handleView}>view</button>}
                         
                     </div>
                      
                 )
                })}
-               {toggleView&&<div className='fedd'> <div className="feedback" style={{width:"600px",height:"600px",marginLeft:"420px"}}>
+               {toggleView&&<div className='fedd'> <div className="feedback" style={{width:"600px",height:"600px",marginLeft:mar2}}>
               
                 <h2>Subject Name: {feedbacks[val-1].subject}</h2>   
                 <h2>Teacher Name:{feedbacks[val-1].teacher.name}</h2>   
@@ -244,7 +270,7 @@ const MyFeedbacks=()=>{
              </div>
        
         </div> }
-        {viewChart&&<ShowChart handleShowChart={handleShowChart} ind={val-1} feedbacks={feedbacks} dataForTable={dataForTable[val-1]} dataForChart={dataForChart[val-1]}></ShowChart>}
+        {viewChart&&<ShowChart handleShowChart={handleShowChart} margs1={mar} ind={val-1} feedbacks={feedbacks} dataForTable={dataForTable[val-1]} dataForChart={dataForChart[val-1]}></ShowChart>}
         
       
 

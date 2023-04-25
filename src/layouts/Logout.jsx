@@ -30,15 +30,15 @@ const Logout = () => {
   
   return (
     <>
-      <div className="text-center card">
+      <div className="text-center2 card">
         <div>
           <div className='img'>
             <img src={man} className="img-man"/>
           </div>
 
-          <div className="heading">Comeback Soon !! </div>
+         {/*  <div className="headingLOG">Comeback Soon !! </div> */}
 
-          <div className='desc'>
+          <div className='desc2'>
             Are You sure You want to Logout?
           </div>
           <button className="cancel btn" onClick={handleCancel}>Cancel</button>

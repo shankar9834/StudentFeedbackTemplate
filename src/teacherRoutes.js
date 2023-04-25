@@ -55,6 +55,8 @@ import ViewAllFeedbacks from "layouts/ViewAllFeedbacks";
 import Logout from "layouts/Logout";
 
 import MyFeedbacks from "layouts/MyFeedbacks";
+import BranchWiseFeedbacks from "layouts/BranchWiseFeedbacks";
+
 
 const teacherRoutes = [
   {
@@ -75,11 +77,19 @@ const teacherRoutes = [
   },
   {
     type: "collapse",
+    name: "Branch Wise Feedbacks",
+    key: "branch",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/branchWise",
+    component: <BranchWiseFeedbacks/>,
+  },
+  {
+    type: "collapse",
     name: "View Feedbacks",
     key: "viewFeedbacks",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/viewFeedbacks",
-    component: <ViewAllFeedbacks />,
+    component: <ViewAllFeedbacks curr='All'/>,
   } , 
   {
     type: "collapse",
