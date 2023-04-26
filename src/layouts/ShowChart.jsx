@@ -70,6 +70,24 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable,margs1
 
     }
 
+
+    const summaryStyle={
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      textAlign: 'start',
+      paddingTop:'10px',
+      backgroundColor: '#fff',
+      borderRadius: '10px',
+      boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.1)',
+      transition: 'all 0.3s ease-in-out',
+      marginTop: '10px',
+      marginBottom: '40px',
+      margineRight:'50px',
+      cursor: 'pointer' ,
+      maxHeight:'200px'
+       }
+
     const handleCloseForm=()=>{
 
       // console.log(feedbacks[ind]._id)
@@ -160,7 +178,14 @@ const ShowChart=({handleShowChart,ind,feedbacks,dataForChart,dataForTable,margs1
     {isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Close Form</button>}
     {!isActiveForm&&<button onClick={handleCloseForm} style={closeBtnStyles}>Open Form</button>}
    {/*  {!isActiveForm&&<p style={{marginLeft:'100px',marginBottom:'100px'}}>summary:- {feedbacks[ind].summary}</p>} */}
-    {!isActiveForm&&<Typography variant="h5"  sx={{ml:30,mb:10}}>summary:- {feedbacks[ind].summary}</Typography>}
+    {!isActiveForm&&
+    <div>
+        <h1 style={{marginLeft:'20px'}}>summary</h1>
+    <div style={summaryStyle} >
+    
+    <Typography variant="h5"  sx={{ml:30,mb:10}}>
+      {feedbacks[ind].summary}
+    </Typography></div></div>}
     {navigate&&<Navigate to="/viewFeedbacks"></Navigate>}
     </div>
     
