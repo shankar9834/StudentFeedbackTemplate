@@ -15,11 +15,27 @@ const optionList=["Agree","Strongly Agree","Disagree","Strongly Disagree"]
 var id='6430786566212bc52c87640b';
 
 var demoQ=[{
-    question:"What is your favourite sport",
+    question:"Overall outcome of the course was good ",
     options:optionList
 },
 {
-    question:"What is your favourite dish",
+    question:"Workload of the course is appropriate",
+    options:optionList
+},
+{
+    question:"Course is Well Organised",
+    options:optionList
+},
+{
+    question:"Faculty taught good material and ran the course as well as possible ",
+    options:optionList
+},
+{
+    question:"Course is relevant for my studies on the goal",
+    options:optionList
+},
+{
+    question:"Faculty is solving problems related to the course in an effective manner",
     options:optionList
 }
 
@@ -58,7 +74,7 @@ const CreateFeedback = () => {
     const [navigate,setNavigate]=useState(false)
     const [addingQ, setAddingQ] = useState(false);
     const [question, setQuestion] = useState("");
-    const [questionList, setQuestionList] = useState([]);
+    const [questionList, setQuestionList] = useState(demoQ);
    // const [questionList, setQuestionList] = useState(demoQ);
     const [subject,setSubject]=useState("");  
 
