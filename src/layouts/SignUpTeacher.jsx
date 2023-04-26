@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logg from '../images/scene.avif';
+import logg from '../images/login1.jpg';
 import {useAuthContext} from '../hooks/useAuthContext';
 import {useState} from 'react'
 import { Navigate } from "react-router-dom";

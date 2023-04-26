@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import logg from '../images/scene.avif'
+import logg from '../images/login1.jpg'
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import {useState} from 'react'
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import IIITL from 'assets/images/IITL.png' 
 
 import {useAuthContext} from '../hooks/useAuthContext'; 
 
@@ -85,7 +86,7 @@ export default function SignInTeacher() {
 
   return (
     <div className='card1' style={{
-          backgroundColor:'#CDC2AE'
+      backgroundImage: `url(${logg})`
     }}>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

@@ -24,7 +24,7 @@ useEffect(()=>{
         answers.push(obj)
     }
 
-     console.log(answers)
+   //  console.log(answers)
 
 },[])
     
@@ -33,7 +33,7 @@ useEffect(()=>{
 
         // console.dir(e.target.id);
         answers[e.target.id].selectedOption = e.target.value;
-        console.log(answers)
+      //  console.log(answers)
     }
 
     const handleSubmitFeedback = () => {
@@ -46,7 +46,7 @@ useEffect(()=>{
             text:text
         }
 
-         console.log(data)
+        // console.log(data)
 
 
          var baseUrl='https://student-feedback-portal-pyoeyxxmi-shankar9834.vercel.app'
